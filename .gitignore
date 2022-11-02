@@ -5,6 +5,7 @@
 *
 !*.*
 !*/
+!compiler
 
 # individual results per run
 out/floydrivest/*.*
