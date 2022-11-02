@@ -1,6 +1,8 @@
 #!/bin/bash
 
-for i in {1..5}
-do
-	./quickselect 10 $i
-done
+for rep in {1..4427}; do for j in {0..19999}; do ./quickselect 20000 $j; done; done
+
+for rep in {0..19999}; do ./statistics out/quickselect/quickselect$rep.txt 4427 4 $rep; done;
+
+# for rep in {1..50}; do for n in {1..20000}; do ./floydrivest $n; done; done
+# for rep in {1..20000}; do ./statistics out/floydrivest/floydrivest$rep.txt 50 2 $rep; done

@@ -36,7 +36,7 @@ void quickselect(int* A, int p, int q, int goal, int* count){
 		else if (r < goal)
 			quickselect(A, r+1, q, goal, count);
 		else if (r ==goal)
-			printf("Found: %i\n", A[r]);
+			printf("%i-th element (%i) found\n", goal, A[r]);
 	}
 }
 
@@ -48,8 +48,8 @@ int main(int argc, char* argv[]){
 	srand ( time(NULL) ); // seed for random generator
 	for(i=0;i<IN;i++)
      		A[i]=rand()%IN;
-	//printf("Original array: ");
-	//print(A, 0, IN);
+	// printf("Original array: ");
+	// print(A, 0, IN);
 	int goal = atoi(argv[2]);
 	int count=0;	
 	quickselect(A, 0, sizeof(A)/sizeof(A[0])-1, goal, &count);
@@ -57,8 +57,10 @@ int main(int argc, char* argv[]){
     	double time_taken = ((double)t)/CLOCKS_PER_SEC;
 	//printf("time taken: %f\n", time_taken);
 	FILE *fp;
-        fp = fopen ("out/quickselect.txt", "a+"); // file pointer
-	printf("Counter is: %i\n", count);					  
+	const char *filename = "out/quickselect.txt";
+	char buffer[1024];
+	snprintf(buffer, sizeof(buffer), "out/quickselect%i.txt", goal);
+        fp = fopen (buffer, "a+"); // file pointer
         fprintf(fp, "%i %i %i %f\n", IN, goal, count, time_taken);
         fclose (fp);
 	return 0;	

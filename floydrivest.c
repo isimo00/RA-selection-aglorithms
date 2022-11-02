@@ -90,8 +90,10 @@ int main(int argc, char* argv[]){
 	t = clock() - t;
     	double time_taken = ((double)t)/CLOCKS_PER_SEC;
 	FILE *fp;
-	fp = fopen("out/floydrivest.txt", "a+");
-	fprintf(fp, "%i %i %f\n", IN, count, time_taken);
+	char buffer[1024];
+	snprintf(buffer, sizeof(buffer), "out/floydrivest/floydrivest%i.txt", IN);
+	fp = fopen(buffer, "a+");
+	fprintf(fp, "%i %f\n", count, time_taken);
        	fclose(fp);	
 	printf("time taken: %f\n", time_taken);
 	return C[fin];
