@@ -7,5 +7,5 @@
 !*/
 
 # individual results per run
-/out/floydrivest/*.*
-/out/quickselect/*.*
+out/floydrivest/*.*
+out/quickselect/*.*
