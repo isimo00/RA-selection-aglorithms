@@ -1,10 +1,8 @@
-## macOS
-.DS_Store
-
 # executables
 *
 !*.*
 !*/
+.DS_Store
 !compiler
 
 # individual results per run
