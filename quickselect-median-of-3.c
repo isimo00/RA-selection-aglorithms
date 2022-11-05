@@ -28,7 +28,6 @@ int median(int* A, int sz){
 int ranpar(int* A,int p,int q, int* count){
 	int r=(p-1);
 	int randix = rand()%(q-p+1)+p;
-	printf("q, p, q-p is %i-%i=%i\n", q, p, q-p);
 	if (q-p > 3){
 		// printf("q-p is %i, creating sub\n", q-p);
 		int subA[3], randixvec[3], subresult;
