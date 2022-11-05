@@ -33,15 +33,15 @@ int ranpar(int* A,int p,int q, int* count){
 		// printf("q-p is %i, creating sub\n", q-p);
 		int subA[3], randixvec[3], subresult;
 		for (int subAi = 0; subAi < 3; subAi++){
-			//randixvec[subAi] = rand()%(q-p)+p;
+			//randixvec[subAi] = rand()%(q-p+1)+p;
 			randixvec[subAi]=rand()%(q-p+1)+p;
 		        subA[subAi] = A[randixvec[subAi]];	
 		}
-		printf("Subarray is: ");
-		print(subA, 0, 3);
-		printf("With original indexes: "); print(randixvec, 0, 3);
+		//printf("Subarray is: ");
+		//print(subA, 0, 3);
+		//printf("With original indexes: "); print(randixvec, 0, 3);
 		subresult = median(subA, 3);
-		printf("median is: %i\n", subresult);
+		//printf("median is: %i\n", subresult);
 		int sub2;
 		for (int subAi =0; subAi <3; subAi++){
 			if (subresult == A[randixvec[subAi]])
@@ -50,11 +50,8 @@ int ranpar(int* A,int p,int q, int* count){
 		//printf("element %i, original position is: %i\n", subresult, sub2);
 		randix = sub2;
 	}
-	//printf("randix (for original array) is: %i \n", randix);
-	//print(A, p, q+1);
 	swap(A, randix, q);
 	int pivot = A[q];
-	printf("Pivot (using randix) is %i, r is: %i\n", pivot, r);
 	for (int e=p; e<q; e++){
 		*count = *count+1;
 		if (A[e] <= pivot){
@@ -63,24 +60,21 @@ int ranpar(int* A,int p,int q, int* count){
 		}
 	}
 	swap(A, r+1, q); // pivot in its position
-	print(A, p, q+1); 
-	printf("r+1 is: %i, element %i\n", r+1, A[r+1]);
 	return (r+1);
-	//int randix = rand()%(q-p) + p;
 }
 
-void quickselect(int* A, int p, int q, int goal, int* count, int* result){
+void quickselect(int* A, int p, int q, int goal, int* count){
 	if (p<q){
 		int r =ranpar(A, p, q, count);
-		if (r > goal){
-			quickselect(A, p, r-1, goal, count, result);
-			printf("New q, p are: %i %i\n", q, r-1);
-		}
+		if (r > goal)
+			quickselect(A, p, r-1, goal, count);
 		else if (r < goal)
-			quickselect(A, r+1, q, goal, count, result);
+			quickselect(A, r+1, q, goal, count); 
+			//quickselect(A, r+1, q, goal, count, result);
+
 		else if (r ==goal){
 			printf("%i-th element (%i) found\n", goal, A[r]);
-			*result = r;
+			//*result = r;
 		}
 	}
 }
@@ -94,21 +88,19 @@ int main(int argc, char* argv[]){
 	srand ( time(NULL) ); // seed for random generator
 	for(i=0;i<IN;i++)
      		A[i]=rand()%IN;
-	printf("Original array: ");
-	print(A, 0, IN);
 	int goal = atoi(argv[2]);
-	int count=0;	
-	quickselect(A, 0, sizeof(A)/sizeof(A[0])-1, goal, &count, &result);
-	printf("From main, %i-th element is %i\n", result, A[result]);
+	int count=0;
+	quickselect(A, 0, sizeof(A)/sizeof(A[0])-1, goal, &count);	
+	//quickselect(A, 0, sizeof(A)/sizeof(A[0])-1, goal, &count, &result);
+	//printf("From main, %i-th element is %i\n", result, A[result]);
 	t = clock() - t;
     	double time_taken = ((double)t)/CLOCKS_PER_SEC;
-	//printf("time taken: %f\n", time_taken);
-	//FILE *fp;
-	//const char *filename = "out/quickselect.txt";
-	//char buffer[1024];
-	//snprintf(buffer, sizeof(buffer), "out/quickselect%i.txt", goal);
-        //fp = fopen (buffer, "a+"); // file pointer
-        //fprintf(fp, "%i %i %i %f\n", IN, goal, count, time_taken);
-        //fclose (fp);
+	printf("time taken: %f\n", time_taken);
+	FILE *fp;
+	char buffer[1024];
+	snprintf(buffer, sizeof(buffer), "out/quick3/quickselect-median-of-3-%i.txt", goal);
+        fp = fopen (buffer, "a+"); // file pointer
+        fprintf(fp, "%i %i %i %f\n", IN, goal, count, time_taken);
+        fclose (fp);
 	return 0;	
 }
