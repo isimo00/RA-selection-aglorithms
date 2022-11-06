@@ -48,14 +48,11 @@ int main(int argc, char* argv[]){
 	srand ( time(NULL) ); // seed for random generator
 	for(i=0;i<IN;i++)
      		A[i]=rand()%IN;
-	// printf("Original array: ");
-	// print(A, 0, IN);
 	int goal = atoi(argv[2]);
 	int count=0;	
 	quickselect(A, 0, sizeof(A)/sizeof(A[0])-1, goal, &count);
 	t = clock() - t;
     	double time_taken = ((double)t)/CLOCKS_PER_SEC;
-	//printf("time taken: %f\n", time_taken);
 	FILE *fp;
 	const char *filename = "out/quickselect.txt";
 	char buffer[1024];

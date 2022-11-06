@@ -47,8 +47,6 @@ int main(int argc, char* argv[]){
 	for(i=0;i<IN;i++)
      		S[i]=rand()%IN;
 	int n = ceil(pow(IN, 3./4));
-	// printf("Initial array S: ");
-	// print(S, IN);
 
 	int R[n];
 	int ranidx;	
@@ -56,18 +54,14 @@ int main(int argc, char* argv[]){
 		ranidx = rand()%IN;
 		R[i]=S[ranidx];
 	}
-	// printf("Sample chosen at random R: ");
-	// print(R, n);
 	int count=0;
-	quicksort(R,0, sizeof(R)/sizeof(R[0]), &count);
-	// printf("sorted R: ");
-	// print(R, n);
+
+	quicksort(R,0, n, &count);
+
 	int id = floor(0.5*n-sqrt(IN));
 	int iu = floor(0.5*n+sqrt(IN));
 	int d= R[id];
 	int u=R[iu];
-	
-	// printf("d is: %i, u is: %i\n", d, u);
 	int *C= malloc(4*n*sizeof(int));
 	int j =0;
 	int ld=0;
@@ -95,7 +89,6 @@ int main(int argc, char* argv[]){
 
 	quicksort(C, 0, j-1, &count); 
 	int fin = floor(IN/2)-ld+1;
-	// printf("element fin is: %i", fin);
 	printf("Total elements: %i, Median: %i\nError: %d\n", IN, C[fin], error);
 	t = clock() - t;
     	double time_taken = ((double)t)/CLOCKS_PER_SEC;
