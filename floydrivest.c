@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
 
 void print(int* A, int n){
 	for (int e=0; e<n; e++)
@@ -70,30 +71,40 @@ int main(int argc, char* argv[]){
 	int *C= malloc(4*n*sizeof(int));
 	int j =0;
 	int ld=0;
+	int lu=0;
+	bool error = false;
 	for (int i=0; i<IN; i++){
 		if (S[i] >= d && S[i] <= u){
 			C[j]=S[i];
 			j++;
 			if (j > 4*n*sizeof(int)){
+				error =true;
 				printf("Algorithm failed, E3. Aborting. \n");
 				abort();	
 			}
 		}
 		else if (S[i] < d)
-		       ld++;
+		        ld++;
+		else if (S[i] > u)
+			lu++;
+
+		if (ld >= ceil(IN/2) || lu>=ceil(IN/2))
+			error = true;	
+
 	}
-	
+
 	quicksort(C, 0, j-1, &count); 
 	int fin = floor(IN/2)-ld+1;
 	// printf("element fin is: %i", fin);
-	printf("Total elements: %i, Median: %i\n", IN, C[fin]);
+	printf("Total elements: %i, Median: %i\nError: %d\n", IN, C[fin], error);
 	t = clock() - t;
     	double time_taken = ((double)t)/CLOCKS_PER_SEC;
 	FILE *fp;
 	char buffer[1024];
 	snprintf(buffer, sizeof(buffer), "out/floydrivest/floydrivest%i.txt", IN);
 	fp = fopen(buffer, "a+");
-	fprintf(fp, "%i %f\n", count, time_taken);
+	fprintf(fp, "%i %d\n", count, error); 
+	//fprintf(fp, "%i %f\n", count, time_taken);
        	fclose(fp);	
 	printf("time taken: %f\n", time_taken);
 	return C[fin];
