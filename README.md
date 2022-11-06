@@ -21,8 +21,8 @@ This files correspond to the submitted version of Assignment #2 for Randomized A
 ---------
 *Instructions on experiment repetition*:
 
-The experiments can be run with bash script script. The script is provided with all lines commented; uncomment blocks to run experiments:
+The experiments can be run with bash script script. The script is provided with all lines commented; uncomment blocks to run experiments. Final results are stored in a "Stats.txt" file inside ```/out``` directory.
 
 ---------
 *Requirements*:
-	- C compiler (libraries stdlib.h, stdio.h, math.h, stdbool.h and time.h)
+- C compiler (libraries stdlib.h, stdio.h, math.h, stdbool.h and time.h)
